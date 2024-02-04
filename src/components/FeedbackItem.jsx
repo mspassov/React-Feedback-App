@@ -1,15 +1,20 @@
 import React from "react";
+import Card from "./Card";
+import { FaTimes } from "react-icons/fa";
 import { useState } from "react";
 
-const FeedbackItem = ({ frating, ftext }) => {
+const FeedbackItem = ({ id, frating, ftext, delItem }) => {
   const [rating, setRating] = useState(frating);
   const [text, setText] = useState(ftext);
 
   return (
-    <div className="card">
+    <Card reverse={false}>
       <div className="num-display">{rating}</div>
+      <button className="close" onClick={() => delItem(id)}>
+        <FaTimes color="purple" />
+      </button>
       <div className="tex-display">{text}</div>
-    </div>
+    </Card>
   );
 };
 
