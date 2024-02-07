@@ -18,7 +18,7 @@ const App = () => {
     <>
       <Header bgColor="rgba(0, 0, 0, 0.4" textColor="#ff6a95" />
       <div className="container">
-        <Form />
+        <Form feedback={feedbackList} addFeedback={setFeedbackList} />
         <FeedbackStats farray={feedbackList} />
         <FeedbackList feedback={feedbackList} delItem={handleDelete} />
       </div>
