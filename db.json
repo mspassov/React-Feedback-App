@@ -1,0 +1,34 @@
+{
+  "feedback": [
+    {
+      "id": "1",
+      "rating": 5,
+      "text": "Feedback number 1 from the mock-backend"
+    },
+    {
+      "id": "2",
+      "rating": 6,
+      "text": "Feedback number 2 from the mock-backend"
+    },
+    {
+      "id": "3",
+      "rating": 7,
+      "text": "Feedback number 3 from the mock-backend"
+    },
+    {
+      "id": "4",
+      "rating": 8,
+      "text": "Feedback number 4 from the mock-backend"
+    },
+    {
+      "id": "68a1",
+      "rating": 9,
+      "text": "The is feedback with rating 9 from mock-backend"
+    },
+    {
+      "id": "5d7f",
+      "rating": 5,
+      "text": "The is some feedback with rating 5 from mock-backend"
+    }
+  ]
+}
