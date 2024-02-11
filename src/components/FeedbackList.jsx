@@ -4,7 +4,6 @@ import FeedbackContext from "../context/FeedbackContext";
 
 const FeedbackList = () => {
   const { feedbackArray } = useContext(FeedbackContext);
-  console.log(feedbackArray);
   return (
     <>
       {feedbackArray == null || feedbackArray.length == 0 ? (
