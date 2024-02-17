@@ -1,13 +1,34 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({children}) =>{
-    const [feedbackArray, setFeedbackArray] = useState([{id:100, rating: 5, text: "Some sample text with id = 100"}]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [feedbackArray, setFeedbackArray] = useState([]);
     const [feedbackEdit, setFeedbackEdit] = useState({
         item: {},
         edit: false
     })
+
+    //As soon as the context loads, we want to populate the feedback array
+    useEffect(()=>{
+        getFeedback();
+    }, [])
+
+    //GET feedback data
+    const getFeedback = async () =>{
+        setIsLoading(true);
+        const res = await fetch('http://localhost:5000/feedback', {
+            method: "GET",
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
+        const data = await res.json();
+
+        setFeedbackArray(data);
+        setIsLoading(false);
+    }
 
     const handleDelete = (id) => {
         const newFeedback = feedbackArray.filter((item) => item.id !== id);
@@ -40,6 +61,7 @@ export const FeedbackProvider = ({children}) =>{
         feedbackArray: feedbackArray, 
         handleDelete: handleDelete,
         setFeedbackArray: setFeedbackArray,
+        isLoading,
         feedbackEdit,
         handleFeedbackEdit,
         handleUpdate

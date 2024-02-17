@@ -29,6 +29,11 @@
       "id": "5d7f",
       "rating": 5,
       "text": "The is some feedback with rating 5 from mock-backend"
+    },
+    {
+      "id": "28c5",
+      "rating": 7,
+      "text": "Hello! I am providing a rating for this application"
     }
   ]
 }
