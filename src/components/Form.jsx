@@ -25,16 +25,28 @@ const Form = ({ feedback, addFeedback }) => {
     setInput(e.target.value);
   };
 
+  //POST add feedback to backend
+  const postFeedback = async (newItem) => {
+    const response = await fetch("/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newItem),
+    });
+    const data = await response.json();
+    setFeedbackArray([data, ...feedbackArray]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (feedbackEdit.edit === false) {
       const newFeedback = {
-        id: uuidv4(),
+        //id: uuidv4(),
         text: input,
         rating: selected,
       };
-
-      setFeedbackArray([newFeedback, ...feedbackArray]);
+      postFeedback(newFeedback);
     } else {
       handleUpdate({ id: feedbackEdit.item.id, rating: selected, text: input });
     }

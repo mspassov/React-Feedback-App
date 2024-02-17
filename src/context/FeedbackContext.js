@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({children}) =>{
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [feedbackArray, setFeedbackArray] = useState([]);
     const [feedbackEdit, setFeedbackEdit] = useState({
         item: {},
@@ -16,13 +16,11 @@ export const FeedbackProvider = ({children}) =>{
     }, [])
 
     //GET feedback data
+    //Added proxy to pacakge JSON to shorten the URL
     const getFeedback = async () =>{
         setIsLoading(true);
-        const res = await fetch('http://localhost:5000/feedback', {
-            method: "GET",
-            headers:{
-                "Content-Type": "application/json"
-            }
+        const res = await fetch('/feedback', {
+            method: "GET"
         })
         const data = await res.json();
 
@@ -30,7 +28,12 @@ export const FeedbackProvider = ({children}) =>{
         setIsLoading(false);
     }
 
-    const handleDelete = (id) => {
+    //DELETE feedback from backend    
+    const handleDelete = async (id) => {
+        const response = await fetch(`/feedback/${id}`, {
+            method: "DELETE"
+        })
+
         const newFeedback = feedbackArray.filter((item) => item.id !== id);
         setFeedbackArray(newFeedback);
     };
@@ -39,13 +42,23 @@ export const FeedbackProvider = ({children}) =>{
         setFeedbackEdit({item: item, edit: true});
     }
 
-    const handleUpdate = (updFeedback) =>{
+    const handleUpdate = async (updFeedback) =>{
+        const response = await fetch(`/feedback/${updFeedback.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updFeedback)
+        });
+        const data = await response.json();
+
+
         setFeedbackArray(feedbackArray.map((item) =>{
             if(item.id == updFeedback.id){
                 const newItem = {
-                    id: updFeedback.id,
-                    rating: updFeedback.rating,
-                    text: updFeedback.text
+                    id: data.id,
+                    rating: data.rating,
+                    text: data.text
                 }
                 return newItem;
             }
